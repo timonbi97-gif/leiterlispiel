@@ -165,3 +165,60 @@ input:focus { border-color: var(--accent); }
   .room { grid-template-columns: 1fr; }
   .board-wrap { position: static; }
 }
+
+/* ---------- Brett-Extras ---------- */
+.board-wrap { position: relative; }
+@media (min-width: 861px) { .board-wrap { position: sticky; } }
+.tip {
+  position: absolute; pointer-events: none; z-index: 5; max-width: 240px;
+  background: rgba(15, 20, 35, 0.92); color: #fff; padding: 7px 11px; border-radius: 10px;
+  font-size: 0.88rem; font-weight: 600; box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  opacity: 0; transform: translateY(4px); transition: opacity .12s, transform .12s;
+}
+.tip.show { opacity: 1; transform: none; }
+
+.board-pick { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.board-pick button { text-align: left; display: flex; flex-direction: column; gap: 1px; padding: 8px 12px; }
+.board-pick small { color: var(--muted); font-weight: 500; font-size: 0.78rem; }
+.board-pick button.sel, .theme-pick button.sel { outline: 3px solid var(--accent); background: rgba(127,127,127,.28); }
+.reroll { margin-bottom: 10px; }
+
+.legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 5px; font-size: 0.86rem; }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.legend small { color: var(--muted); }
+.lg-icon {
+  width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
+  font-size: 15px; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.2);
+}
+
+.player-list li { flex-wrap: wrap; position: relative; }
+.pbar {
+  flex-basis: 100%; height: 5px; border-radius: 99px; background: rgba(127,127,127,.2); position: relative; overflow: hidden;
+}
+.pbar::after {
+  content: ""; position: absolute; inset: 0; width: var(--w); background: var(--c); border-radius: 99px;
+  transition: width .6s ease;
+}
+
+/* Würfel mit Augen */
+.die {
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+  padding: 9px; gap: 2px; font-size: 0;
+  background: linear-gradient(145deg, #ffffff, #e4e6ee);
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 5px 0 #c3c6d2, 0 8px 16px rgba(0,0,0,.25);
+}
+.die i { border-radius: 50%; background: #1d2333; transform: scale(0); transition: transform .12s; margin: 2px; }
+.die i.on { transform: scale(1); }
+.die.rolling { animation: tumble 0.5s ease-out; }
+@keyframes tumble {
+  0% { transform: rotate(0) translateY(0); }
+  30% { transform: rotate(-200deg) translateY(-14px) scale(1.1); }
+  60% { transform: rotate(-330deg) translateY(0) scale(0.95); }
+  100% { transform: rotate(-360deg); }
+}
+.turn-label { font-size: 1.2rem; }
+
+/* Brett passt immer komplett ins Fenster */
+#board { margin: 0 auto; width: min(100%, calc((100vh - 32px) * 640 / 720)); }
+@media (max-width: 860px) { #board { width: 100%; } }

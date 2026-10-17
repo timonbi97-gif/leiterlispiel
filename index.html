@@ -53,6 +53,7 @@
     <div class="room">
       <div class="board-wrap">
         <canvas id="board"></canvas>
+        <div id="tip" class="tip"></div>
       </div>
       <aside class="side">
         <div class="card room-head">
@@ -74,6 +75,9 @@
         <div id="lobby-ctrl" class="card">
           <h3>Thema</h3>
           <div id="theme-pick" class="theme-pick"></div>
+          <h3>Spielbrett</h3>
+          <div id="board-pick" class="board-pick"></div>
+          <button id="btn-reroll" class="btn small wide reroll">🔄 Neues Zufallsbrett</button>
           <div id="host-ctrl">
             <div class="btn-row">
               <button id="btn-bot-add" class="btn small">🤖 Bot +</button>
@@ -87,10 +91,15 @@
         <div id="play-ctrl" class="card play-ctrl">
           <div id="turn-label" class="turn-label"></div>
           <div class="dice-row">
-            <div id="die" class="die">🎲</div>
+            <div id="die" class="die"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
             <button id="btn-roll" class="btn primary big">Würfeln</button>
           </div>
           <div id="turn-timer" class="hint"></div>
+        </div>
+
+        <div class="card">
+          <h3>Felder</h3>
+          <ul id="legend" class="legend"></ul>
         </div>
 
         <div class="card">
@@ -126,6 +135,7 @@
   <div id="busy" class="overlay hidden"><div class="card"><div class="spinner"></div><p id="busy-text">Verbinde…</p></div></div>
   <div id="toast" class="toast"></div>
 </div>
+<script src="themes.js"></script>
 <script src="game.js"></script>
 </body>
 </html>
