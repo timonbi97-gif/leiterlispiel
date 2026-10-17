@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leiterlispiel Online</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body data-theme="flugzeuge">
+<div id="app">
+
+  <!-- Hauptmenü -->
+  <section id="scr-menu" class="screen active">
+    <h1 class="logo">🪜 Leiterlispiel <span>Online</span></h1>
+    <p class="sub">Würfeln, klettern, abstürzen – mit Freunden oder Fremden.</p>
+    <div class="card menu-card">
+      <label class="field">Dein Name
+        <input id="inp-name" maxlength="16" placeholder="z.B. Timon" autocomplete="off">
+      </label>
+
+      <div class="menu-block">
+        <h3>👥 Mit Freunden</h3>
+        <button id="btn-host" class="btn primary wide">🎲 Spiel hosten</button>
+        <div class="join-row">
+          <input id="inp-code" maxlength="5" placeholder="CODE" autocomplete="off" spellcheck="false">
+          <button id="btn-join" class="btn">Beitreten</button>
+        </div>
+      </div>
+
+      <div class="menu-block">
+        <h3>🌍 Online-Modus</h3>
+        <button id="btn-browser" class="btn accent wide">Öffentliche Lobbys</button>
+        <button id="btn-quick" class="btn wide">⚡ Schnellspiel</button>
+      </div>
+    </div>
+    <p id="menu-msg" class="msg"></p>
+  </section>
+
+  <!-- Lobby-Browser -->
+  <section id="scr-browser" class="screen">
+    <div class="topbar">
+      <button id="btn-browser-back" class="btn small">← Zurück</button>
+      <h2>🌍 Öffentliche Lobbys</h2>
+      <button id="btn-browser-refresh" class="btn small">↻ Aktualisieren</button>
+    </div>
+    <div id="lobby-list" class="lobby-list"></div>
+    <p class="hint">Leere Lobby anklicken = du wirst Host. Volle Lobbys (6/6) sind gesperrt.</p>
+  </section>
+
+  <!-- Spielraum (Warteraum + Spiel) -->
+  <section id="scr-room" class="screen">
+    <div class="room">
+      <div class="board-wrap">
+        <canvas id="board"></canvas>
+      </div>
+      <aside class="side">
+        <div class="card room-head">
+          <div>
+            <div id="room-title" class="room-title"></div>
+            <div id="room-sub" class="room-sub"></div>
+          </div>
+          <div class="room-btns">
+            <button id="btn-copy" class="btn small">🔗 Link</button>
+            <button id="btn-leave" class="btn small danger">Verlassen</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Spieler <span id="player-count"></span></h3>
+          <ul id="player-list" class="player-list"></ul>
+        </div>
+
+        <div id="lobby-ctrl" class="card">
+          <h3>Thema</h3>
+          <div id="theme-pick" class="theme-pick"></div>
+          <div id="host-ctrl">
+            <div class="btn-row">
+              <button id="btn-bot-add" class="btn small">🤖 Bot +</button>
+              <button id="btn-bot-del" class="btn small">🤖 Bot −</button>
+            </div>
+            <button id="btn-start" class="btn primary wide">▶ Spiel starten</button>
+          </div>
+          <p id="wait-msg" class="hint">Warte, bis der Host das Spiel startet…</p>
+        </div>
+
+        <div id="play-ctrl" class="card play-ctrl">
+          <div id="turn-label" class="turn-label"></div>
+          <div class="dice-row">
+            <div id="die" class="die">🎲</div>
+            <button id="btn-roll" class="btn primary big">Würfeln</button>
+          </div>
+          <div id="turn-timer" class="hint"></div>
+        </div>
+
+        <div class="card">
+          <h3>Verlauf</h3>
+          <ul id="log" class="log"></ul>
+        </div>
+
+        <div class="card chat">
+          <h3>Chat</h3>
+          <div id="chat-msgs" class="chat-msgs"></div>
+          <form id="chat-form" class="chat-form">
+            <input id="chat-inp" maxlength="200" placeholder="Nachricht…" autocomplete="off">
+            <button class="btn small">➤</button>
+          </form>
+        </div>
+      </aside>
+    </div>
+
+    <div id="win-overlay" class="overlay hidden">
+      <div class="card win-card">
+        <div class="win-icon">🏆</div>
+        <h2 id="win-text"></h2>
+        <div id="win-host" class="btn-row">
+          <button id="btn-again" class="btn primary">Nochmal spielen</button>
+          <button id="btn-tolobby" class="btn">Zur Lobby</button>
+        </div>
+        <p id="win-wait" class="hint">Warte auf den Host…</p>
+        <button id="btn-win-close" class="btn small">Brett ansehen</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="busy" class="overlay hidden"><div class="card"><div class="spinner"></div><p id="busy-text">Verbinde…</p></div></div>
+  <div id="toast" class="toast"></div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
